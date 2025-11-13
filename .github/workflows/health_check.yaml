@@ -50,6 +50,12 @@ jobs:
       id: setup_keyring
       run: poetry run pip install keyrings.alt && poetry run python -c "import keyring;
         from keyrings.alt.file import PlaintextKeyring; keyring.set_keyring(PlaintextKeyring());"
+    - name: Install Pygame System Dependencies
+      id: install_pygame_system_dependencies
+      run: sudo apt-get update && sudo apt-get install -y libsdl2-dev libfreetype6-dev
+      env:
+        REPO_TOKEN: ${{ secrets.REPO_TOKEN }}
+      if: runner.os == 'Linux'
     - name: Protect Repository
       id: protect_repository
       run: poetry run python -m winipedia_utils.dev.git.github.repo.protect
