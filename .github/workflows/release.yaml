@@ -49,7 +49,9 @@ jobs:
       if: ${{ runner.os }} == 'Windows'
     - name: Install Pygame System Dependencies
       id: install_pygame_system_dependencies
-      run: sudo apt-get update && sudo apt-get install -y libsdl2-dev libfreetype6-dev
+      run: (sudo apt-get update -y && sudo apt-get install -y libsdl2-dev libfreetype6-dev)
+        || (brew install sdl2 freetype) || (pacman -Sy --noconfirm mingw-w64-x86_64-SDL2
+        mingw-w64-x86_64-freetype)
     - name: Install Python Dependencies
       id: install_python_dependencies
       run: poetry install
@@ -111,7 +113,9 @@ jobs:
       uses: snok/install-poetry@main
     - name: Install Pygame System Dependencies
       id: install_pygame_system_dependencies
-      run: sudo apt-get update && sudo apt-get install -y libsdl2-dev libfreetype6-dev
+      run: (sudo apt-get update -y && sudo apt-get install -y libsdl2-dev libfreetype6-dev)
+        || (brew install sdl2 freetype) || (pacman -Sy --noconfirm mingw-w64-x86_64-SDL2
+        mingw-w64-x86_64-freetype)
     - name: Install Python Dependencies
       id: install_python_dependencies
       run: poetry install
